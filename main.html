@@ -20,6 +20,9 @@
     <script>
         document.getElementById("add").addEventListener('click',name);
         let arr=new Map();
+        function cl(clicked){
+            console.log(clicked);
+        }
         function name(){
             var inputString = prompt('타이머 이름을 입력하세요.', '타이머');
             var ti=prompt('시간을 입력하세요.','90');
@@ -32,7 +35,7 @@
 	            for (const [key, value] of arr) {
                     js+='[타이머 이름 : '+key + '] || [' + '원래 시간 : ' + value +']\n';
                 }
-	            document.getElementById("team").innerHTML=js+'<button id=`${inputString}s`)>시작</button> <button id=`${inputString}e`)>중지</button>';
+	            document.getElementById("team").innerHTML=js+`<button id="${inputString}s" onclick="cl(this.id);")>시작</button> <button id="${inputString}e" onclick="cl(this.id);")>중지</button>`;
             }
         }
 
