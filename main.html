@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>타이머</title>
+    <meta charset="UTF-8">
+    <style>
+        .center{
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+<h1 align="center"><p style="background-color: orange;color:yellow"> 타이머 </p></h1>
+<div class="center"><button id="add">타이머를 추가하세요.</button></div>
+<p align="center" style="color:blue">&lt;타이머 목록	&gt;</p>
+<div id="team" align="center"></div>
+    <script>
+        document.getElementById("add").addEventListener('click',name);
+        let arr=new Map();
+        function name(){
+            var inputString = prompt('타이머 이름을 입력하세요.', '타이머');
+            var ti=prompt('시간을 입력하세요.','90');
+            if(arr.has(inputString)){
+	            alert('이미 있는 타이머입니다.');
+	        }
+	        else if(inputString!=null && ti!=null){
+                arr.set(inputString,ti);
+	            let js="";
+	            for (const [key, value] of arr) {
+                    js+='[타이머 이름 : '+key + '] || [' + '원래 시간 : ' + value +']\n';
+                }
+	            document.getElementById("team").innerHTML=js+'<button id=`${inputString}s`)>시작</button> <button id=`${inputString}e`)>중지</button>';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
