@@ -21,8 +21,9 @@
 		console.log('안녕하세요!\n모두를 위한 타이머입니다.\nhttps://github.com/gmb9817/timer\nstar 눌러주세요!');
         document.getElementById("add").addEventListener('click',name);
         let arr=new Map();
+		let mp=new Map();
         function cl(clicked){
-	    	if(clicked[clicked.length-1]==='s'){
+	    	if(clicked[clicked.length-1]==='+'){
 				
 			}
 			else{
@@ -37,11 +38,8 @@
 	        }
 	        else if(inputString!=null && ti!=null){
                 arr.set(inputString,ti);
-	            let js="";
-	            for (const [key, value] of arr) {
-                    js+='[타이머 이름 : '+key + '] || [' + '원래 시간 : ' + value +']\n';
-                }
-	            document.getElementById("team").innerHTML=js+`<button id="${inputString}s" onclick="cl(this.id);")>시작</button> <button id="${inputString}e" onclick="cl(this.id);")>중지</button>`;
+	            let js='[타이머 이름 : '+ inputString + '] || [' + '원래 시간 : ' + ti +']';
+	            document.getElementById("team").innerHTML+=`<div id="${inputString}!">`+js+`<button id="${inputString}+" onclick="cl(this.id);")>시작</button> <button id="${inputString}-" onclick="cl(this.id);")>중지</button>` + '</div> 남은 시간 : '+`<div id="${inputString}~">${ti}</div>`;
             }
         }
 
