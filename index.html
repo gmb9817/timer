@@ -30,9 +30,11 @@
 		function cl(clicked){
 	    	if(clicked[clicked.length-1]==='+'){
 				let id1=setInterval(cnt, 1000,clicked.slice(0,-1));
+				clicked=clicked,slice(0,-1);
 				mp.set(clicked,id1);
 			}
 			else{
+				clicked=clicked,slice(0,-1);
 				clearInterval(mp.get(clicked));
 			}
         }
