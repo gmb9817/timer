@@ -157,6 +157,9 @@
             if (arr.has(inputString)) {
                 alert('이미 있는 타이머입니다.');
             } else if (inputString != null && ti != null) {
+                if(isNaN(Number(ti))) return alert('정수를 입력해주세요.');
+                if(ti <= 0) return alert('1이상의 정수를 입력해주세요.');
+
                 arr.set(inputString, ti);
                 time.set(inputString, ti);
                 let js = `
