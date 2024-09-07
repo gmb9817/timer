@@ -9,6 +9,10 @@
         .center{
             text-align:center;
         }
+		.bottom{
+			position:absolute;
+			bottom:0px;
+		}
     </style>
 </head>
 
@@ -17,11 +21,17 @@
 <div class="center"><button id="add">타이머를 추가하세요.</button></div>
 <p align="center" style="color:blue">&lt;타이머 목록&gt;</p>
 <div id="team" align="center"></div>
+<div class="center;bottom">안녕</div>
     <script>
         document.getElementById("add").addEventListener('click',name);
         let arr=new Map();
         function cl(clicked){
-            console.log(clicked);
+	    	if(clicked[clicked.length-1]==='s'){
+				
+			}
+			else{
+				
+			}
         }
         function name(){
             var inputString = prompt('타이머 이름을 입력하세요.', '타이머');
