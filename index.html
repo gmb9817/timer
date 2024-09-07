@@ -9,10 +9,6 @@
         .center{
             text-align:center;
         }
-		.bottom{
-			position:absolute;
-			bottom:0px;
-		}
     </style>
 </head>
 
@@ -21,8 +17,8 @@
 <div class="center"><button id="add">타이머를 추가하세요.</button></div>
 <p align="center" style="color:blue">&lt;타이머 목록&gt;</p>
 <div id="team" align="center"></div>
-<div style="center;bottom">안녕</div>
     <script>
+		console.log('안녕하세요!\n모두를 위한 타이머입니다.\nhttps://github.com/gmb9817/timer\nstar 눌러주세요!');
         document.getElementById("add").addEventListener('click',name);
         let arr=new Map();
         function cl(clicked){
