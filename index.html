@@ -46,7 +46,7 @@
                 arr.set(inputString,ti);
 				time.set(inputString,ti);
 	            let js='[타이머 이름 : '+ inputString + '] || [' + '원래 시간 : ' + ti +']';
-	            document.getElementById("team").innerHTML+=`<div id="${inputString}!">`+js+`<button id="${inputString}+" onclick="cl(this.id);")>시작</button> <button id="${inputString}-" onclick="cl(this.id);")>중지</button>` + '</div> 남은 시간 : '+`<div id="${inputString}~">${ti}</div>`;
+	            document.getElementById("team").innerHTML+=`<div id="${inputString}!">`+js+`<button id="${inputString}+" onclick="cl(this.id);")>시작</button> <button id="${inputString}-" onclick="cl(this.id);")>중지</button>` + '</div> 남은 시간 : '+`<div id="${inputString}">${ti}</div>`;
             }
         }
 
